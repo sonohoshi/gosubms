@@ -4,80 +4,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BMS Result Logger</title>
+    <title>고수븜스</title>
+    <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
     <!-- SQL.js CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 
 <body>
     <div class="container">
         <header>
-            <h1>📅 BMS Result Logger</h1>
-            <p class="date" id="current-date">--</p>
+            <h1><i class="fas fa-table"></i> 고수븜스</h1>
+            <p id="current-date">2026-01-02</p>
         </header>
 
-        <!-- File Upload Section -->
-        <section class="upload-section" id="upload-section">
-            <div class="card">
-                <h2>📂 데이터베이스 파일 선택</h2>
-                <p class="upload-desc">자신의 <code>score.db</code>와 <code>scorelog.db</code> 파일을 선택해주세요.</p>
+        <!-- Main Content -->
+        <div id="content-area">
+            <!-- Upload Section -->
+            <section class="upload-section" id="upload-section">
+                <div class="card">
+                    <h2>📂 데이터베이스 파일 선택</h2>
+                    <p class="upload-desc">
+                        Beatoraja의 <code>score.db</code>와 <code>scorelog.db</code> 파일을 선택해주세요.<br>
+                        파일은 서버에 전송되지 않고 브라우저에서만 처리됩니다.
+                    </p>
 
-                <div class="file-inputs">
-                    <div class="input-group">
-                        <label for="score-db">score.db</label>
-                        <input type="file" id="score-db" accept=".db">
+                    <div class="file-inputs">
+                        <div class="input-group">
+                            <label for="score-db">score.db</label>
+                            <input type="file" id="score-db" accept=".db">
+                        </div>
+                        <div class="input-group">
+                            <label for="scorelog-db">scorelog.db</label>
+                            <input type="file" id="scorelog-db" accept=".db">
+                        </div>
                     </div>
-                    <div class="input-group">
-                        <label for="scorelog-db">scorelog.db</label>
-                        <input type="file" id="scorelog-db" accept=".db">
-                    </div>
-                </div>
 
-                <button id="load-btn" disabled>데이터 불러오기</button>
-                <div id="loading-msg" style="display:none; color: #bb86fc; margin-top: 10px;">데이터 분석 및 곡 정보 로딩 중...
-                </div>
-            </div>
-        </section>
-
-        <!-- Dashboard Section (Hidden by default) -->
-        <div id="dashboard" style="display: none;">
-            <!-- Summary Stats -->
-            <section class="summary-cards">
-                <div class="card">
-                    <h3>플레이 횟수</h3>
-                    <p class="value" id="val-playcount">-</p>
-                </div>
-                <div class="card">
-                    <h3>클리어</h3>
-                    <p class="value" style="color: #a5d6a7;" id="val-clears">-</p>
-                </div>
-                <div class="card">
-                    <h3>실패</h3>
-                    <p class="value" style="color: #cf6679;" id="val-fails">-</p>
+                    <button id="load-btn" disabled>데이터 불러오기</button>
                 </div>
             </section>
 
-            <!-- Detailed List -->
-            <section class="play-list">
-                <h2>📜 상세 기록</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>시간</th>
-                            <th>곡 제목</th>
-                            <th>난이도</th>
-                            <th>변동 내역</th>
-                        </tr>
-                    </thead>
-                    <tbody id="result-tbody">
-                        <!-- JS renders rows here -->
-                    </tbody>
-                </table>
+            <!-- Dashboard (Hidden initially) -->
+            <section id="dashboard" style="display: none;">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon play"><i class="fas fa-play"></i></div>
+                        <div class="stat-info">
+                            <h3>플레이 횟수</h3>
+                            <p class="stat-value" id="stat-playcount">-</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon clear"><i class="fas fa-check"></i></div>
+                        <div class="stat-info">
+                            <h3>클리어</h3>
+                            <p class="stat-value text-clear-best" id="stat-clear">-</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon fail"><i class="fas fa-times"></i></div>
+                        <div class="stat-info">
+                            <h3>실패</h3>
+                            <p class="stat-value text-clear-1" id="stat-fail">-</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon note"><i class="fas fa-music"></i></div>
+                        <div class="stat-info">
+                            <h3>처리한 노트 수</h3>
+                            <p class="stat-value" id="stat-notes">-</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>📜 오늘자 기록 갱신</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>시각</th>
+                                <th>곡 [차분]</th>
+                                <th>난이도</th>
+                                <th>변동 내역</th>
+                            </tr>
+                        </thead>
+                        <tbody id="result-tbody">
+                            <!-- JS renders rows here -->
+                        </tbody>
+                    </table>
+                </div>
             </section>
         </div>
     </div>
+
+    <footer id="footer">
+        <p>본 서비스는 개인적인 용도로 개발되었으며, 업로드된 데이터는 서버에 저장되지 않고 브라우저 내에서만 처리됩니다.</p>
+        <div class="social-links">
+            <a href="https://x.com/dev_sonohoshi" target="_blank" title="Developer Twitter (X)">
+                <i class="fa-brands fa-x-twitter"></i> @dev_sonohoshi
+            </a>
+            <span class="separator">|</span>
+            <a href="https://github.com/sonohoshi/bms-result-logger" target="_blank" title="GitHub Repository">
+                <i class="fa-brands fa-github"></i> Repository
+            </a>
+        </div>
+    </footer>
 
     <!-- Main Logic -->
     <script src="js/app.js"></script>

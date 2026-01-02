@@ -222,3 +222,119 @@ button#load-btn:disabled {
 button#load-btn:hover:not(:disabled) {
     opacity: 0.8;
 }
+
+/* Dashboard Stats (New Design) */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: #1e1e1e;
+    padding: 20px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5em;
+    color: #fff;
+}
+
+.stat-icon.play {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+.stat-icon.clear {
+    background: linear-gradient(135deg, #2af598, #009efd);
+}
+
+.stat-icon.fail {
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    color: #333;
+}
+
+.stat-icon.note {
+    background: linear-gradient(135deg, #f093fb, #f5576c);
+}
+
+.stat-info h3 {
+    margin: 0;
+    font-size: 0.9em;
+    color: #aaa;
+    font-weight: normal;
+}
+
+.stat-value {
+    margin: 5px 0 0;
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #fff;
+}
+
+/* Footer */
+#footer {
+    margin-top: 50px;
+    padding: 20px;
+    text-align: center;
+    font-size: 0.8em;
+    color: #666;
+    border-top: 1px solid #333;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#footer p {
+    margin: 5px 0;
+}
+
+#footer a {
+    color: #888;
+    text-decoration: none;
+    border-bottom: 1px dotted #888;
+}
+
+#footer a:hover {
+    color: var(--highlight);
+    border-bottom: 1px solid var(--highlight);
+}
+
+.social-links {
+    margin-top: 10px;
+    font-size: 1.1em;
+}
+
+.social-links a {
+    color: #aaa;
+    margin: 0 10px;
+    border-bottom: none !important;
+    transition: color 0.2s;
+}
+
+.social-links a:hover {
+    color: #fff !important;
+}
+
+.social-links i {
+    margin-right: 5px;
+}
+
+.separator {
+    color: #444;
+}
