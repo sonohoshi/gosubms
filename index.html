@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMS Result Logger</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+    <!-- SQL.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>📅 BMS Result Logger</h1>
+            <p class="date" id="current-date">--</p>
+        </header>
+
+        <!-- File Upload Section -->
+        <section class="upload-section" id="upload-section">
+            <div class="card">
+                <h2>📂 데이터베이스 파일 선택</h2>
+                <p class="upload-desc">자신의 <code>score.db</code>와 <code>scorelog.db</code> 파일을 선택해주세요.</p>
+
+                <div class="file-inputs">
+                    <div class="input-group">
+                        <label for="score-db">score.db</label>
+                        <input type="file" id="score-db" accept=".db">
+                    </div>
+                    <div class="input-group">
+                        <label for="scorelog-db">scorelog.db</label>
+                        <input type="file" id="scorelog-db" accept=".db">
+                    </div>
+                </div>
+
+                <button id="load-btn" disabled>데이터 불러오기</button>
+                <div id="loading-msg" style="display:none; color: #bb86fc; margin-top: 10px;">데이터 분석 및 곡 정보 로딩 중...
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard Section (Hidden by default) -->
+        <div id="dashboard" style="display: none;">
+            <!-- Summary Stats -->
+            <section class="summary-cards">
+                <div class="card">
+                    <h3>플레이 횟수</h3>
+                    <p class="value" id="val-playcount">-</p>
+                </div>
+                <div class="card">
+                    <h3>클리어</h3>
+                    <p class="value" style="color: #a5d6a7;" id="val-clears">-</p>
+                </div>
+                <div class="card">
+                    <h3>실패</h3>
+                    <p class="value" style="color: #cf6679;" id="val-fails">-</p>
+                </div>
+            </section>
+
+            <!-- Detailed List -->
+            <section class="play-list">
+                <h2>📜 상세 기록</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>시간</th>
+                            <th>곡 제목</th>
+                            <th>난이도</th>
+                            <th>변동 내역</th>
+                        </tr>
+                    </thead>
+                    <tbody id="result-tbody">
+                        <!-- JS renders rows here -->
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </div>
+
+    <!-- Main Logic -->
+    <script src="js/app.js"></script>
+</body>
+
+</html>
