@@ -338,3 +338,331 @@ button#load-btn:hover:not(:disabled) {
 .separator {
     color: #444;
 }
+
+/* ==================== Share Feature ==================== */
+
+/* Share Button */
+.share-btn-container {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+#share-btn {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: #fff;
+    border: none;
+    padding: 14px 40px;
+    font-size: 1.05rem;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+#share-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+}
+
+#share-btn:active {
+    transform: translateY(0);
+}
+
+#share-btn i {
+    margin-right: 8px;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content {
+    background: #1e1e1e;
+    border-radius: 16px;
+    padding: 30px;
+    width: 90%;
+    max-width: 560px;
+    max-height: 85vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    border: 1px solid #333;
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.modal-content h2 {
+    margin: 0 0 20px 0;
+    color: var(--accent);
+    font-size: 1.3rem;
+}
+
+.modal-content h2 i {
+    margin-right: 8px;
+}
+
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: #888;
+    font-size: 1.8rem;
+    cursor: pointer;
+    transition: color 0.2s;
+    line-height: 1;
+}
+
+.modal-close:hover {
+    color: #fff;
+}
+
+/* Image Preview */
+#share-image-container {
+    background: #111;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 15px;
+    text-align: center;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#share-image-loading {
+    color: var(--text-sub);
+    font-size: 0.95em;
+}
+
+#share-image-loading i {
+    margin-right: 8px;
+}
+
+#share-canvas {
+    max-width: 100%;
+    border-radius: 8px;
+}
+
+.share-actions {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.share-actions button {
+    flex: 1;
+    padding: 10px 16px;
+    border-radius: 8px;
+    border: 1px solid #444;
+    background: #2a2a2a;
+    color: #fff;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 500;
+}
+
+.share-actions button:hover:not(:disabled) {
+    background: #3a3a3a;
+    border-color: var(--accent);
+}
+
+.share-actions button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.share-actions button i {
+    margin-right: 6px;
+}
+
+/* Share Sections */
+.share-section {
+    margin-bottom: 18px;
+}
+
+.share-section label {
+    display: block;
+    font-size: 0.9em;
+    color: var(--text-sub);
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.url-row {
+    display: flex;
+    gap: 8px;
+}
+
+.url-row input {
+    flex: 1;
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 10px 12px;
+    color: var(--text-main);
+    font-size: 0.85em;
+    font-family: monospace;
+    outline: none;
+}
+
+.url-row input:focus {
+    border-color: var(--accent);
+}
+
+.url-row button {
+    background: var(--accent);
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 14px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: opacity 0.2s;
+}
+
+.url-row button:hover {
+    opacity: 0.8;
+}
+
+#share-text {
+    width: 100%;
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 12px;
+    color: var(--text-main);
+    font-size: 0.9em;
+    font-family: 'Noto Sans KR', sans-serif;
+    resize: none;
+    outline: none;
+    box-sizing: border-box;
+    line-height: 1.5;
+}
+
+#share-text:focus {
+    border-color: var(--accent);
+}
+
+#copy-text-btn {
+    margin-top: 8px;
+    background: #2a2a2a;
+    border: 1px solid #444;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: all 0.2s;
+    width: 100%;
+    font-weight: 500;
+}
+
+#copy-text-btn:hover {
+    background: #3a3a3a;
+    border-color: var(--accent);
+}
+
+#copy-text-btn i {
+    margin-right: 6px;
+}
+
+.share-error {
+    color: var(--error);
+    font-size: 0.8em;
+    margin-top: 6px;
+}
+
+/* Copy Success Feedback */
+.copy-success {
+    background: var(--highlight) !important;
+    color: #000 !important;
+    border-color: var(--highlight) !important;
+}
+
+/* Shared View */
+.shared-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.shared-header h2 {
+    color: var(--accent);
+    margin: 0 0 8px 0;
+}
+
+.shared-header h2 i {
+    margin-right: 8px;
+}
+
+.shared-header p {
+    color: var(--text-sub);
+    margin: 0;
+    font-size: 1.1em;
+}
+
+/* Toast */
+.toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--highlight);
+    color: #000;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 0.9em;
+    z-index: 2000;
+    opacity: 0;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Modal Scrollbar */
+.modal-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 3px;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+    background: #666;
+}

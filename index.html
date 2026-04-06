@@ -10,6 +10,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
     <!-- SQL.js CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
+    <!-- html2canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- pako (compression) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
@@ -96,6 +100,33 @@
                         </tbody>
                     </table>
                 </div>
+
+                <!-- Share Button -->
+                <div class="share-btn-container">
+                    <button id="share-btn"><i class="fas fa-share-alt"></i> 공유하기</button>
+                </div>
+            </section>
+
+            <!-- Shared View (URL 해시 복원용) -->
+            <section id="shared-view" style="display: none;">
+                <div class="shared-header">
+                    <h2><i class="fas fa-chart-bar"></i> 공유된 성과</h2>
+                    <p id="shared-date"></p>
+                </div>
+                <div class="stats-grid" id="shared-stats-grid"></div>
+                <h3>📜 기록 갱신</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>곡 [차분]</th>
+                                <th>난이도</th>
+                                <th>변동 내역</th>
+                            </tr>
+                        </thead>
+                        <tbody id="shared-result-tbody"></tbody>
+                    </table>
+                </div>
             </section>
         </div>
     </div>
@@ -112,6 +143,41 @@
             </a>
         </div>
     </footer>
+
+    <!-- Share Modal -->
+    <div id="share-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <button id="modal-close-btn" class="modal-close">&times;</button>
+            <h2><i class="fas fa-share-alt"></i> 공유하기</h2>
+
+            <!-- Image Preview -->
+            <div id="share-image-container">
+                <div id="share-image-loading"><i class="fas fa-spinner fa-spin"></i> 이미지 생성 중...</div>
+                <canvas id="share-canvas" style="display: none;"></canvas>
+            </div>
+            <div class="share-actions">
+                <button id="copy-image-btn" disabled><i class="fas fa-clipboard"></i> 이미지 복사</button>
+                <button id="download-image-btn" disabled><i class="fas fa-download"></i> 이미지 저장</button>
+            </div>
+
+            <!-- Share URL -->
+            <div class="share-section">
+                <label>🔗 공유 URL</label>
+                <div class="url-row">
+                    <input id="share-url" readonly />
+                    <button id="copy-url-btn"><i class="fas fa-copy"></i></button>
+                </div>
+                <p id="share-url-error" class="share-error" style="display: none;"></p>
+            </div>
+
+            <!-- Share Text -->
+            <div class="share-section">
+                <label>📝 공유 메시지</label>
+                <textarea id="share-text" readonly rows="5"></textarea>
+                <button id="copy-text-btn"><i class="fas fa-clipboard"></i> 메시지 복사</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Main Logic -->
     <script src="js/app.js"></script>
